@@ -27,6 +27,10 @@ public:
 	}
 
 	MyClass& operator=(MyClass const & obj) {
+		if (this == &obj) {
+			printf("They are equal\n");
+			return *this;
+		}
 		n_ = obj.n_;
 		std::free(p_);
 		p_ = (int8_t *)malloc(n_ * sizeof(int8_t));
@@ -57,6 +61,11 @@ MyClass f() {
 	return x;
 }
 
+MyClass g() {
+	printf("return MyClass(8);\n");
+	return MyClass(8);
+}
+
 int main()
 {
 	printf("MyClass a(10);\n");
@@ -67,10 +76,15 @@ int main()
 	b = MyClass(15);
 	printf("\na = b;\n");
 	a = b;
+	printf("\nb = b;\n");
+	b = b;
 	printf("\nMyClass x = MyClass(8);\n");
 	MyClass x = MyClass(8);
 	printf("\na = f();\n");
 	a = f();
 	printf("\nMyClass c = f();\n");
 	MyClass c = f();
+	printf("\nMyClass d = g();\n");
+	MyClass d = g();
+	getchar();
 }
